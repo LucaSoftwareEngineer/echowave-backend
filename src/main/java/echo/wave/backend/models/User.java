@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
@@ -24,5 +26,12 @@ public class User {
 
     private String password;
     private String role;
+
+    @OneToMany
+    private List<Brano> brani;
+
+    public void aggiungiBrano(Brano brano) {
+        brani.add(brano);
+    }
 
 }

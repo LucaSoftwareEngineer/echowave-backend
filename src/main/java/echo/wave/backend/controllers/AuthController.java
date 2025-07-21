@@ -45,7 +45,7 @@ public class AuthController {
     @PostMapping("/register")
     public void registerUser(@RequestBody RegisterRequest request) {
         String hashedPassword = passwordEncoder.encode(request.getRawPassword());
-        User user = new User(null, request.getUsername(), hashedPassword, request.getRole());
+        User user = new User(null, request.getUsername(), hashedPassword, request.getRole(), null);
         userRepository.save(user);
     }
 
