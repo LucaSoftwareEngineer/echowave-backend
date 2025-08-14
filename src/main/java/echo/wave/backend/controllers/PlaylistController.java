@@ -1,6 +1,7 @@
 package echo.wave.backend.controllers;
 
 import echo.wave.backend.dto.CreaPlaylistRequest;
+import echo.wave.backend.dto.EliminaPlaylistResponse;
 import echo.wave.backend.models.Brano;
 import echo.wave.backend.models.Playlist;
 import echo.wave.backend.security.JwtUtil;
@@ -25,6 +26,11 @@ public class PlaylistController {
         token = token.substring(7);
         String username = jwtUtil.extractUsername(token);
         return ResponseEntity.ok().body(playlistService.creaPlaylist(json.getNome(), username));
+    }
+
+    @DeleteMapping("/elimina/{idPlaylist}")
+    public ResponseEntity<EliminaPlaylistResponse> eliminaPlaylist(@PathVariable Long idPlaylist) {
+        return ResponseEntity.ok().body(new EliminaPlaylistResponse(playlistService.eliminaPlaylist(idPlaylist)));
     }
 
     @PostMapping("/aggiungi/brano/{idPlaylist}/{idBrano}")

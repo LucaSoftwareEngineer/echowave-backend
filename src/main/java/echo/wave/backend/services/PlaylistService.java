@@ -56,4 +56,13 @@ public class PlaylistService {
         return playlistRepository.save(playlist);
     }
 
+    public Boolean eliminaPlaylist(Long idPlaylist) {
+        try {
+            playlistRepository.deleteById(idPlaylist);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
 }
