@@ -44,4 +44,16 @@ public class PlaylistService {
         return playlistRepository.save(playlist);
     }
 
+    public Playlist rimuoviBranoDallaPlaylist(Long[] chiavi) {
+        Playlist playlist = playlistRepository.findById(chiavi[0]).get();
+        Brano brano = branoRepository.findById(chiavi[1]).get();
+        if (playlist == null) {
+            new PlaylistNotFound();
+        } else if (brano == null) {
+            new BranoNotFound();
+        }
+        playlist.rimuoviBrano(brano);
+        return playlistRepository.save(playlist);
+    }
+
 }

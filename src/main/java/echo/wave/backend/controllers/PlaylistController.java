@@ -36,4 +36,13 @@ public class PlaylistController {
         return ResponseEntity.ok().body(playlistService.aggiungiBranoAllaPlaylist(chiavi));
     }
 
+    @DeleteMapping("/elimina/brano/{idPlaylist}/{idBrano}")
+    public ResponseEntity<Playlist> eliminaBranoDallaPlaylist(
+            @PathVariable Long idPlaylist,
+            @PathVariable Long idBrano
+    ) {
+        Long[] chiavi = {idPlaylist, idBrano};
+        return ResponseEntity.ok().body(playlistService.rimuoviBranoDallaPlaylist(chiavi));
+    }
+
 }

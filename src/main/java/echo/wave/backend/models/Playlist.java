@@ -31,5 +31,8 @@ public class Playlist {
     public void aggiungiBrano(Brano brano) {
         brani.add(brano);
     }
+    public void rimuoviBrano(Brano brano) {
+        brani.remove(brano);
+    }
 
 }
