@@ -1,6 +1,8 @@
 package echo.wave.backend.services;
 
+import echo.wave.backend.comparators.BranoComparatorByNome;
 import echo.wave.backend.components.Uploader;
+import echo.wave.backend.exceptions.UserNotFound;
 import echo.wave.backend.models.Brano;
 import echo.wave.backend.models.User;
 import echo.wave.backend.repositories.BranoRepository;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +35,22 @@ public class BranoService {
         user.aggiungiBrano(branoSalvato);
         userRepository.save(user);
         return branoSalvato;
+    }
+
+    public List<Brano> elencoBraniByAll() {
+        List<Brano> brani = branoRepository.findAll();
+        Collections.sort(brani, new BranoComparatorByNome());
+        return brani;
+    }
+
+    public List<Brano> elencoBraniById(Long idUser) {
+        User user = userRepository.findById(idUser).get();
+        if (user == null) {
+            new UserNotFound("utente non trovato");
+        }
+        List<Brano> brani = user.getBrani();
+        Collections.sort(brani, new BranoComparatorByNome());
+        return brani;
     }
 
 }

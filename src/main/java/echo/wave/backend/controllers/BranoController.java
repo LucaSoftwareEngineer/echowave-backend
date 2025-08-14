@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/brano")
@@ -25,6 +26,16 @@ public class BranoController {
     ) throws IOException {
         Long id = Long.parseLong(idUser);
         return branoService.aggiungiBrano(nome, fileName, id, file);
+    }
+
+    @GetMapping("/elenco")
+    public List<Brano> elencoBraniByAll() {
+        return branoService.elencoBraniByAll();
+    }
+
+    @GetMapping("/elenco/{idUser}")
+    public List<Brano> elencoBraniById(@PathVariable Long idUser) {
+        return branoService.elencoBraniById(idUser);
     }
 
 }
