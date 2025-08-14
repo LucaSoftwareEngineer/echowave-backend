@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -23,5 +24,12 @@ public class Playlist {
 
     @ManyToOne
     private User user;
+
+    @ManyToMany
+    private List<Brano> brani;
+
+    public void aggiungiBrano(Brano brano) {
+        brani.add(brano);
+    }
 
 }

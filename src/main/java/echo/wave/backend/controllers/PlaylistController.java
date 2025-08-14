@@ -1,6 +1,7 @@
 package echo.wave.backend.controllers;
 
 import echo.wave.backend.dto.CreaPlaylistRequest;
+import echo.wave.backend.models.Brano;
 import echo.wave.backend.models.Playlist;
 import echo.wave.backend.security.JwtUtil;
 import echo.wave.backend.services.PlaylistService;
@@ -24,6 +25,15 @@ public class PlaylistController {
         token = token.substring(7);
         String username = jwtUtil.extractUsername(token);
         return ResponseEntity.ok().body(playlistService.creaPlaylist(json.getNome(), username));
+    }
+
+    @PostMapping("/aggiungi/brano/{idPlaylist}/{idBrano}")
+    public ResponseEntity<Playlist> aggiungiBranoAllaPlaylist(
+            @PathVariable Long idPlaylist,
+            @PathVariable Long idBrano
+    ) {
+        Long[] chiavi = {idPlaylist, idBrano};
+        return ResponseEntity.ok().body(playlistService.aggiungiBranoAllaPlaylist(chiavi));
     }
 
 }
